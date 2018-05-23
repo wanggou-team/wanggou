@@ -1,188 +1,81 @@
 <template>
-  <div id="home">
+  <div>
     <header class="header">
-      <h2>回购首页</h2>
+      <p class="name">李娜</p>
+      <p class="phone">18812345678</p>
 
-      <figure class="card">
-        <router-link to='login'>
-          <img src="../assets/home03.png" alt="花券礼品卡">
-        </router-link>  
-        <figcaption class="title">花券礼品卡</figcaption>  
-      </figure>
-      <!-- <div class="homeTitle">
-        <img class="headerIcon" src="../assets/home01.png" alt="">
-        <span class="titleName">回购首页</span>
-      </div> -->
-
-      <!-- <img class="maxWin bgheader" src="../assets/home02.png" alt="">
-      <div class="headerCard">
-        <router-link to='login'><img class="maxWin cardImg" src="../assets/home03.png" alt=""></router-link>  
-      </div> -->
-
-      <div class="marqueeWrap">
-        <img class="marImg" src="../assets/home04.png" alt="通知">
-        <van-notice-bar
-          class="notice"
-          text="足协杯战线连续第2年上演广州德比战，上赛季半决赛上恒大以两回合5-3的总比分淘汰富力。" />
-        <time class="date">05-06</time>
+      <div class="avatar">
+        <img src="http://cdn.zhangxinxu.com/image/blog/zxx_90_0824.jpg" alt="">
       </div>
-
-      <div class="linediv"></div>  
     </header>
 
-    <!-- 回购教程 -->
+    <van-cell-group class="item">
+      <van-cell title="个人信息" icon="location" is-link />
+    </van-cell-group>
 
-    <div class="buy-back-Wrap">
-      <h2 class="backTitle">回购教程</h2>
-      <ul>
-        <li class="buy_list" data-foo="1">登录花木范商城进行花券获取，<router-link class='goBuy' to='/login'>点击申请</router-link></li>
-        <li class="buy_list" data-foo="2">认证审核通过后，获取花券序列号，点击激活</li>
-        <li class="buy_list" data-foo="3">激活后回到该界面点击上方窗口，输入序列号</li>
-        <li class="buy_list" data-foo="4">资金到账，等待十天后商城付款</li>
-      </ul>
-    </div>
-    <!-- 占位 -->
-    <div class="plcaeholderDiv"></div>
-    <!-- <footerBar active='home'></footerBar> -->
+    <van-cell-group class="item">
+      <van-cell title="历史订单" icon="location" is-link />
+    </van-cell-group>
+
+    <van-cell-group class="item">
+      <van-cell title="花券传送门" icon="location" is-link />
+    </van-cell-group>
+
+    <van-cell-group class="item">
+      <van-cell title="消息记录" icon="location" is-link />
+    </van-cell-group>
   </div>
 </template>
-<script type="text/ecmascript-6">
-import { NoticeBar } from 'vant';
-// import { notice-bar, FlexboxItem,Marquee, MarqueeItem,Group,Cell} from 'vux'
-// import footerBar from './TabbarFooter'
+
+<script>
+import { Cell, CellGroup } from 'vant';
+
 export default {
-  data () {
-      return {}
-  },
-  created () {
-  },
-  mounted () {
-  },
-  methods: {
-  },
   components: {
-    [NoticeBar.name]: NoticeBar
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup
   }
 }
 </script>
-
 <style lang="scss" scoped>
-  .home{
-    background: #eee;
+.header{
+  background: #ef4f51;
+  height: 3.826667rem;
+  padding-top: .4rem;
+  box-sizing: border-box;
+  text-align: center;
+  margin-bottom: 1.333333rem;
+  color: #fff;
+  font-size: .373333rem;
+  line-height: .613333rem;
+  // clip-path: ellipse(90% 70% at 0% 50%);
+  // shape-outside: ellipse();
+  // shape-margin: 2em;
+
+  .name{
+    font-size: .4rem;
+    font-weight: 700;
   }
-
-  .header{
-    padding: .466667rem 0 0;
-    background: #fff url('../assets/home02.png') no-repeat;
-    background-size: contain;
-    h2{
-      padding-left: 1.013333rem;
-      font-size: .48rem;
-      color: #fff;
-      position: relative;
-
-      &::before{
-        background-color: pink;
-        content: "";
-        width: .64rem;
-        height: .64rem;
-        position: absolute;
-        top: 0;
-        left: .186667rem;
-      }
-    }
-
-    .card{
-      position: relative;
-      text-align: center;
-      height: 5.76rem;
-      img{
-        width: 9.76rem;
-        height: 100%;
-      }
-
-      .title{
-        text-align: left;
-        left: .906667rem;
-        top: .733333rem;
-        color: #fff;
-        position: absolute;
-        font-size: .373333rem;
-      }
-    }
-  }
-
-  .marqueeWrap{
-    display: flex;
-    align-items: center;
-    padding: .56rem .453333rem;
-    .notice{
-      background-color: transparent;
-      flex: 1;
-      font-size: .346667rem;
-      color: #666;
-      padding: 0 .2rem;
-    }
-
-    .marImg{
-      width:2rem;
-      height:.77rem;
-    }
-    .date{
-      font-size: .346667rem;
-      color: #aaa;
-    }
-  }
-
-
-
-.buy-back-Wrap{
-  margin-top: .266667rem;
-  padding-left:.63rem;
-  background-color: #fff;
 }
-.backTitle{
-  font-size: .4rem;
-  font-weight: bold;
-  color:#ff5a57;
-  padding:.53rem 0 .213333rem;
-}
-.buy_list{
-  display: flex;
-  position:relative;
-  // border-bottom:1px solid #ef4f51;
-  height: 1.44rem;
-  align-items: center;
-  font-size: .346667rem;
-  color: #666;
 
-  
+.avatar{
+  display: inline-block;
+  height: 2.133333rem;
+  width: 2.133333rem;
+  border-radius: 100%;
+  background: #fff;
+  border: .133333rem solid #fff;
+  margin-top: .333333rem;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
 
-  &::before{
-    content: attr(data-foo) " ";
-    color: #fff;
-    background: url('../assets/home05.png') no-repeat center;
-    width:.773333rem;
-    height: .666667rem;
-    background-size: 100%;
-    display: inline-block;
-    text-align:center;
-    line-height:.67rem;
-    margin-right: .266667rem;
-  }
-  &:not(:last-child):after{
-    content: "";
+  img{
     width: 100%;
-    height: 1px;
-    background-color: #ef4f51;
-    position: absolute;
-    bottom: 0;
-    left: 1.026667rem;
+    height: 100%;
+    border-radius: 100%;
   }
 }
-
-.goBuy{
-  color:#ff5a57;
-  text-decoration: underline;
+.item{
+  margin-bottom: .16rem;
 }
 </style>
+

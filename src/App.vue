@@ -16,12 +16,14 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  max-width: 750px;
+  margin: 0 auto;
 }
 body {
   background-color: #f5f5f5;
 }
 
-h1,h2,h3,h4,h5,h6,figure,figcaption {
+h1,h2,h3,h4,h5,h6,figure,figcaption,p {
   margin: 0;
   padding: 0;
 }

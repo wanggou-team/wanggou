@@ -1,18 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
+import Index from '@/components/Index'
 import Login from '@/components/Login'
 import About from '@/components/About'
 import History from '@/components/History'
+import Home from '@/components/Home'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'Index',
+      component: Index
     },
     {
       path: '/login',
@@ -28,6 +28,11 @@ export default new Router({
       path: '/history',
       name: 'History',
       component: History
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home
     }
   ]
 })
