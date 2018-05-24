@@ -5,12 +5,16 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    user: {}
+    user: {},
+    bankList: []
   },
 
   mutations: {
     SET_USER(state, payload){
       state.user = payload
+    },
+    SET_BANKLIST(state, payload){
+      state.bankList = payload
     }
   }
 })
