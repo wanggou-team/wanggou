@@ -11,7 +11,16 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      
+      '/apis': {
+        //'http://47.100.43.158:8085', // 接口域名
+        target: 'http://test.mall.51veryrich.com',
+        //是否跨域
+        changeOrigin: true,
+        //需要rewrite的,
+        pathRewrite: {
+          '^/apis': ''   //需要rewrite的,
+        }
+      }
     },
 
     // Various Dev Server settings

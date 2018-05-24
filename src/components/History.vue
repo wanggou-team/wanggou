@@ -30,7 +30,7 @@
 
 <script type="text/ecmascript-6">
   import { List } from 'vant';
-  import axios from 'axios'
+  import axios from '@/plugin/axios'
   export default {
     data () {
       return {
@@ -57,16 +57,13 @@
 
     methods: {
       onLoad () {
-        debugger
         this.page++
         this.getOrder()
       },
       getOrder () {
         axios.post('/apis/front/loanOrder/page.htm', {
-          params: {
-            page: this.page,
-            pageSize: this.pageSize
-          }
+          page: this.page,
+          pageSize: this.pageSize
         })
       }
     },

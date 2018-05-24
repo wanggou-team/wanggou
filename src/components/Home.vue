@@ -1,8 +1,15 @@
 <template>
   <div>
     <header class="header">
-      <p class="name">李娜</p>
-      <p class="phone">18812345678</p>
+      <div v-if="user.userNm">
+        <p class="name">{{user.userNick}}</p>
+        <p class="phone">{{user.userNm}}</p>
+      </div>
+
+      <div v-if="!user.userNm">
+        <p class="name">未登录</p>
+      </div>
+      
 
       <div class="avatar">
         <img src="http://cdn.zhangxinxu.com/image/blog/zxx_90_0824.jpg" alt="">
@@ -10,11 +17,11 @@
     </header>
 
     <van-cell-group class="item">
-      <van-cell title="个人信息" icon="location" is-link />
+      <van-cell title="个人信息" icon="location" to="/user" is-link />
     </van-cell-group>
 
     <van-cell-group class="item">
-      <van-cell title="历史订单" icon="location" is-link />
+      <van-cell title="历史订单" icon="location" to="/history" is-link />
     </van-cell-group>
 
     <van-cell-group class="item">
@@ -29,8 +36,16 @@
 
 <script>
 import { Cell, CellGroup } from 'vant';
+import axios from '@/plugin/axios'
+import {mapState} from 'vuex'
 
 export default {
+  data(){
+    return {}
+  },
+  computed: {
+    ...mapState(['user'])
+  },
   components: {
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup

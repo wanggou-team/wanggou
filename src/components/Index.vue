@@ -4,7 +4,7 @@
       <h2>回购首页</h2>
 
       <figure class="card">
-        <router-link to='login'>
+        <router-link to='recovery'>
           <img src="../assets/home03.png" alt="花券礼品卡">
         </router-link>  
         <figcaption class="title">花券礼品卡</figcaption>  
@@ -30,16 +30,12 @@
         <li class="buy_list" data-foo="4">资金到账，等待十天后商城付款</li>
       </ul>
     </div>
-    <!-- 占位 -->
-    <div class="plcaeholderDiv"></div>
-    <Footer></Footer>
-    <!-- <footerBar active='home'></footerBar> -->
   </div>
 </template>
 <script type="text/ecmascript-6">
 import { NoticeBar } from 'vant';
-// import { notice-bar, FlexboxItem,Marquee, MarqueeItem,Group,Cell} from 'vux'
-import Footer from './Footer'
+import axios from '@/plugin/axios'
+
 export default {
   data () {
       return {}
@@ -51,7 +47,6 @@ export default {
   methods: {
   },
   components: {
-    Footer,
     [NoticeBar.name]: NoticeBar
   }
 }
@@ -60,6 +55,7 @@ export default {
 <style lang="scss" scoped>
   .home{
     background: #eee;
+    padding-bottom: 51px;
   }
 
   .header{
@@ -132,6 +128,7 @@ export default {
   margin-top: .266667rem;
   padding-left:.63rem;
   background-color: #fff;
+
 }
 .backTitle{
   font-size: .4rem;
@@ -148,8 +145,6 @@ export default {
   font-size: .346667rem;
   color: #666;
 
-  
-
   &::before{
     content: attr(data-foo) " ";
     color: #fff;
@@ -164,7 +159,7 @@ export default {
   }
   &:not(:last-child):after{
     content: "";
-    width: 100%;
+    width: calc(100% - 1.026667rem);
     height: 1px;
     background-color: #ef4f51;
     position: absolute;

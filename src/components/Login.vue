@@ -6,12 +6,12 @@
       <div>
         <div class="item">
           <i class="icon"></i>
-          <van-field v-model="user" placeholder="请输入用户名" />
+          <van-field v-model="user" placeholder="请输入手机号" />
         </div>
         <div class="item">
           <i class="icon"></i>
           <van-field v-model="code" placeholder="请输入验证码">
-            <span class="sendCode" slot="button">(50)秒后再获取</span>
+            <span class="sendCode" @click="getCode" slot="button">(50)秒后再获取</span>
           </van-field>
         </div>
         <van-button class="submit" @click="login" type="primary" bottom-action>按钮</van-button>
@@ -20,7 +20,9 @@
 </template>
 
 <script>
-import { Cell, CellGroup, Button, Field } from 'vant';
+import { Cell, CellGroup, Button, Field, Toast } from 'vant';
+import axios from '@/plugin/axios'
+import util from '@/plugin'
 
 export default {
 	data () {
@@ -29,10 +31,49 @@ export default {
 			code: ''
 		}
 	},
+	validators: {
+    user (value) {
+      return Validator.value(value).required('请输入手机号');
+    },
+    code (value) {
+      return Validator.value(value).required('请输入验证码');
+    }
+  },
 	methods: {
 		// 登录
 		login () {
-			this.$router.push('/')
+			this.$validate().then(async (success) => {
+        if(success){
+					const data =  await axios.post('/apis/front/login.htm', {userNm: this.user, code: this.code})
+					if(data.bizCode === 0){
+						Toast(data.msg)
+					}else{
+						const user = data.data || {}
+						this.$store.commit('SET_USER', user)
+						util.setCookie('loginToken', user.loginToken)
+						this.$router.go('/home')
+					}
+        }else{
+          Toast(this.validation.errors[0].message)
+        }
+      })
+		},
+
+		// 获取验证码
+		async getCode(){
+			if(!this.user.trim()){
+				Toast('请输入手机号')
+				return;
+			}
+
+			if (!util.phone.test(this.user)){
+				Toast('请输入正确的手机号')
+				return ;
+			}
+			const data = await axios.get('/apis/front/code.htm', {params: {userNm: this.user}})
+			if(data.bizCode === 0){
+				Toast(data.msg)
+			}
 		}
 	},
   components: {
@@ -56,14 +97,6 @@ export default {
 			background: pink;
 			height: .6rem;
 			margin-right: .533333rem;
-		}
-
-		.submit{
-			margin-top: .986667rem;
-			height: 1.173333rem;
-			line-height: 1.173333rem;
-			background-color: #ef4f51;
-			border-radius: 6px;
 		}
 
 		.item{

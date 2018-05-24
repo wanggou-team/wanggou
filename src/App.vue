@@ -1,26 +1,39 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{'showTabBar': $route.name === 'Index'}">
     <router-view/>
+    <Footer v-if="$route.name === 'Home' || $route.name === 'Index'"></Footer>
   </div>
 </template>
 
 <script>
+import Footer from '@/components/Footer'
+
 export default {
-  name: 'App'
+  name: 'App',
+  created(){
+    
+  },
+  components: {
+    Footer
+  }
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  max-width: 750px;
   margin: 0 auto;
+  &.showTabBar{
+    padding-bottom: 51px;
+  }
 }
 body {
+  max-width: 750px;
   background-color: #f5f5f5;
+  overflow-x: hidden;
 }
 
 h1,h2,h3,h4,h5,h6,figure,figcaption,p {
@@ -30,5 +43,31 @@ h1,h2,h3,h4,h5,h6,figure,figcaption,p {
 
 li{
   list-style: none;
+}
+.submit{
+  margin-top: .986667rem;
+  height: 1.173333rem;
+  line-height: 1.173333rem;
+  background-color: #ef4f51;
+  border-radius: 6px;
+}
+
+/* 各种协议 */
+#agreement{
+  color: #7180e5;
+}
+
+.agreement-box{
+  padding-top: .32rem;
+  padding-bottom: 1.333333rem;
+  .van-checkbox__icon{
+    width: .4rem;
+    height: .4rem;
+  }
+
+  .van-checkbox--checked{
+    border-color: #ef4f51;
+    background-color: #ef4f51;
+  }
 }
 </style>
