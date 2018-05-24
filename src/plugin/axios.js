@@ -12,13 +12,17 @@ let options = {
 let axiosInstance = axios.create(options)
 axiosInstance.interceptors.request.use(config => {
   const loginToken = util.getCookie('loginToken')
-
-  if(config.data){
-    config.data.loginToken = loginToken
-  }
-
   if(config.method === 'post'){
+    config.data.loginToken = loginToken
     config.data = qs.stringify(config.data)
+  }
+  
+  if(config.method === 'get'){
+    if(config.params){
+      config.params.loginToken = loginToken
+    }else{
+      config.params = {loginToken}
+    }
   }
   return config
 }, function (error) {

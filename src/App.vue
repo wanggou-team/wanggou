@@ -7,11 +7,21 @@
 
 <script>
 import Footer from '@/components/Footer'
+import axios from '@/plugin/axios'
+import util from '@/plugin'
 
 export default {
   name: 'App',
   created(){
-    
+    this.getBankList()
+  },
+
+  methods: {
+    async getBankList(){
+      const data = await axios.get('/apis/front/loanOrder/bankList.htm')
+      this.$store.commit('SET_USER', data.user)
+      this.$store.commit('SET_BANKLIST', data.data)
+    }
   },
   components: {
     Footer
