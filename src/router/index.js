@@ -11,6 +11,8 @@ import User from '@/components/User'
 import Recovery from '@/components/Recovery'
 import BindCard from '@/components/BindCard'
 import Auth from '@/components/Auth'
+import Defect from '@/components/defect';
+import Wait from '@/components/Wait';
 
 Vue.use(Router)
 
@@ -62,6 +64,16 @@ const router = new Router({
       path: '/auth',
       name: 'Auth',
       component: Auth
+    },
+    {
+      path: '/defect',
+      name: 'defect',
+      component: Defect
+    },
+    {
+      path: '/wait',
+      name: 'wait',
+      component: Wait
     }
   ]
 })
