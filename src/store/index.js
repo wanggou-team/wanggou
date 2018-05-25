@@ -11,10 +11,10 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    SET_USER(state, payload){
+    SET_USER(state, payload = {}) {
       state.user = payload
     },
-    SET_BANKLIST(state, payload){
+    SET_BANKLIST(state, payload = []) {
       state.bankList = payload
     }
   },

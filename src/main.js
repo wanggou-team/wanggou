@@ -5,7 +5,9 @@ import SimpleVueValidation from 'simple-vue-validator';
 import App from './App'
 import router from './router'
 import store from '@/store'
+import { Lazyload } from 'vant';
 
+Vue.use(Lazyload);
 Vue.use(SimpleVueValidation);
 Vue.config.productionTip = false
 

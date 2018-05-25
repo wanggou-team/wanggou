@@ -44,7 +44,7 @@ export default {
 
 <style lang="scss" scoped>
   .tabbar{
-    border-top: 1px solid #adadad;
+    border-top: .013333rem solid #adadad;
   }
 </style>
 
