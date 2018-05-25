@@ -15,6 +15,7 @@ import Auth from '@/components/Auth'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [{
       path: '/',
       name: 'Index',
@@ -87,6 +88,7 @@ router.beforeEach((to, from, next) => {
       })
     // 已登录
     } else {
+      debugger
       next()
     }
   } else {

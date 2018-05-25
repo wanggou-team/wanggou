@@ -13,7 +13,7 @@ import util from '@/plugin'
 export default {
   name: 'App',
   created(){
-    this.getBankList()
+    // this.getBankList()
   },
 
   methods: {

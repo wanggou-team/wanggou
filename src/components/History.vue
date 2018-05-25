@@ -56,15 +56,19 @@
     },
 
     methods: {
+      // 分页获取订单
       onLoad () {
         this.page++
         this.getOrder()
       },
-      getOrder () {
-        axios.post('/apis/front/loanOrder/page.htm', {
+
+      // 请求获取订单
+      async getOrder () {
+        const data = await axios.post('/apis/front/loanOrder/page.htm', {
           page: this.page,
           pageSize: this.pageSize
         })
+        return data
       }
     },
     components: {

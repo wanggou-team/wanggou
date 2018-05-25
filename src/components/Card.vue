@@ -1,11 +1,11 @@
 <template>
   <div class="bindCard">
     <div class="cardBox">
-      <!-- <div class="card">
+      <div class="card" v-if="banks.length > 1">
 
-      </div> -->
+      </div>
 
-      <p class="noBind">未绑定银行卡</p>
+      <p class="noBind" v-if="banks.length < 1">未绑定银行卡</p>
     </div>
     <router-link class="bind" to="bindCard">去绑定</router-link>
   </div>
@@ -13,7 +13,14 @@
 
 <script>
 export default {
-  
+  props: {
+    banks: {
+      type: Array,
+      default(){
+        return []
+      }
+    }
+  }
 }
 </script>
 

@@ -2,7 +2,7 @@
   <div id="user">
     <div class="userBox">
       <van-cell-group class="item">
-        <van-cell title="手机号码" value="15088747046" />
+        <van-cell title="手机号码" :value="user.mobile" />
       </van-cell-group>
 
       <div class="item cardBox">
@@ -10,12 +10,12 @@
           <h3 class="title">绑定银行卡</h3>
         </header>
         <div class="card">
-          <Card />
+          <Card :banks="user.banks"/>
         </div>
       </div>
 
       <van-cell-group class="item">
-        <van-cell title="关于我们" is-link url="/#/about"/>
+        <van-cell title="关于我们" is-link url="/about"/>
       </van-cell-group>
     </div>
     
@@ -31,7 +31,20 @@ import Card from '@/components/Card';
 import axios from '@/plugin/axios'
 
 export default {
+  data(){
+    return {
+      user: {}
+    }
+  },
+  created(){
+    this.getUserInfo()
+  },
   methods: {
+    // 获取用户信息
+    async getUserInfo(){
+      const {data = {}} = await axios.get('/apis/front/loanOrder/info.htm')
+      this.user = data
+    },
     // 退出登录
     async logout(){
       const data = await axios.post('/apis/front/logout.htm');

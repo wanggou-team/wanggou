@@ -16,7 +16,7 @@ axiosInstance.interceptors.request.use(config => {
     config.data.loginToken = loginToken
     config.data = qs.stringify(config.data)
   }
-  
+
   if(config.method === 'get'){
     if(config.params){
       config.params.loginToken = loginToken
@@ -35,6 +35,13 @@ axiosInstance.interceptors.response.use(response => {
   const config = response.config
   const headers = response.headers
   let data = response.data || {}
+  const {bizCode} = data
+
+  // 登录失效跳转到登录
+  if(bizCode === -1){
+    util.delCookie('loginToken')
+    window.location = '/login'
+  }
   return Promise.resolve(data || {})
 }, (error) => {
   // Message.error(error.message || '系统出错')
