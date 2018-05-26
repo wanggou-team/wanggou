@@ -11,7 +11,7 @@
         <div class="item">
           <i class="icon"></i>
           <van-field v-model="code" placeholder="请输入验证码">
-            <span class="sendCode" @click="getCode" slot="button">(50)秒后再获取</span>
+            <button :phone="user" class="sendCode" @click="getCode" slot="button" v-countdown>获取验证码</button>
           </van-field>
         </div>
         <van-button class="submit" @click="login" type="primary" bottom-action>按钮</van-button>

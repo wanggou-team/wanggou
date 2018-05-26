@@ -12,20 +12,23 @@ let options = {
 let axiosInstance = axios.create(options)
 axiosInstance.interceptors.request.use(config => {
   const loginToken = util.getCookie('loginToken')
-  if(config.method === 'post'){
+  if (config.method === 'post') {
+    if (!config.data) {
+      config.data = {}
+    }
     config.data.loginToken = loginToken
     config.data = qs.stringify(config.data)
   }
 
-  if(config.method === 'get'){
-    if(config.params){
+  if (config.method === 'get') {
+    if (config.params) {
       config.params.loginToken = loginToken
-    }else{
-      config.params = {loginToken}
+    } else {
+      config.params = { loginToken }
     }
   }
   return config
-}, function (error) {
+}, function(error) {
   // 对请求错误做些什么
   return Promise.reject(error)
 })
@@ -35,10 +38,10 @@ axiosInstance.interceptors.response.use(response => {
   const config = response.config
   const headers = response.headers
   let data = response.data || {}
-  const {bizCode} = data
+  const { bizCode } = data
 
   // 登录失效跳转到登录
-  if(bizCode === -1){
+  if (bizCode === -1) {
     util.delCookie('loginToken')
     window.location = '/login'
   }
@@ -56,7 +59,7 @@ axiosInstance.interceptors.response.use(response => {
   // if (error.response.status === 403) {
   //   // 做点什么事
   // }
- 
+
   return Promise.reject(error)
 })
 

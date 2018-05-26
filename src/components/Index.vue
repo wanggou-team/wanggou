@@ -14,8 +14,7 @@
         <img class="marImg" src="../assets/home04.png" alt="通知">
         <van-notice-bar
           class="notice"
-          text="足协杯战线连续第2年上演广州德比战，上赛季半决赛上恒大以两回合5-3的总比分淘汰富力。" />
-        <time class="date">05-06</time>
+          text="暂无消息" />
       </div>
     </header>
 
@@ -107,6 +106,7 @@ export default {
     .notice{
       background-color: transparent;
       flex: 1;
+      text-align: center;
       font-size: .346667rem;
       color: #666;
       padding: 0 .2rem;
@@ -115,10 +115,6 @@ export default {
     .marImg{
       width:2rem;
       height:.77rem;
-    }
-    .date{
-      font-size: .346667rem;
-      color: #aaa;
     }
   }
 

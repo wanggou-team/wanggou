@@ -4,29 +4,38 @@
       <header class="header">
         <h2 class="title">花券回收</h2>
       </header>
-
+      {{user.banks}}
       <div class="form">
         <van-cell-group class="item" @click.native="showCards">
-          <van-field class="field"  v-model="form.cardType" label="选择卡种" placeholder="请选择卡种" disabled required>
+          <van-field class="field"  
+            v-model="cardType" 
+            label="选择卡种" 
+            placeholder="请选择卡种" 
+            disabled 
+            required>
+            <van-icon name="arrow" slot="icon" />
+          </van-field>
+        </van-cell-group>
+        <van-cell-group class="item" @click.native="showPrices">
+          <van-field class="field"  
+            v-model="price" 
+            label="选择面额" 
+            placeholder="请选择面额" 
+            disabled 
+            required>
             <van-icon name="arrow" slot="icon" />
           </van-field>
         </van-cell-group>
 
         <van-cell-group class="item">
-          <van-field class="field"  @click.native="showPrices" v-model="form.price" label="选择面额" placeholder="请选择面额" disabled required>
-            <van-icon name="arrow" slot="icon" />
-          </van-field>
+          <van-field class="field" v-model="cardCode" label="卡序列号" placeholder="请输入卡序列号" required/>
         </van-cell-group>
 
         <van-cell-group class="item">
-          <van-field class="field" v-model="form.cardCode" label="卡序列号" placeholder="请输入卡序列号" required/>
+          <Card :banks="user.banks" />
         </van-cell-group>
 
-        <van-cell-group class="item">
-          <Card />
-        </van-cell-group>
-
-        <van-button class="submit" type="primary" bottom-action>提交</van-button>
+        <van-button class="submit" @click="submit" type="primary" bottom-action>提交</van-button>
       </div>
     </div>
     <van-popup v-model="show" position="bottom" class="picker">
@@ -36,30 +45,56 @@
 </template>
 
 <script>
-import { Cell, CellGroup, Button, Field, Icon, Picker, Popup } from 'vant';
+import { Cell, CellGroup, Button, Field, Icon, Picker, Popup, Toast } from 'vant';
 import Card from '@/components/Card'
+import axios from '@/plugin/axios'
+import {mapActions, mapState} from 'vuex'
 
 export default {
   data(){
     return {
       show: false,
-      form: {},
-      columns: [
-        { text: '杭州', disabled: true },
-        { text: '宁波' },
-        { text: '温州' }
-      ]
+      cardType: '花木范花券礼品卡',
+      price: '',
+      cardCode: '',
+      columns: []
+    }
+  },
+  validators: {
+    cardType (value) {
+      return Validator.value(value).required('请选择卡种')
+    },
+    price (value) {
+      return Validator.value(value).required('请选择面额')
+    },
+    cardCode(value){
+      return Validator.value(value).required('请填写卡序列号')
+    }
+  },
+  created(){
+    // 获取面额
+    this.getCardPrice()
+  },
+  computed: {
+    ...mapState(['cardPrice', 'user'])
+  },
+  watch:{
+    cardPrice(newVal = {}){
+      this.price = newVal.loanAmount
     }
   },
   methods: {
+    ...mapActions(['getCardPrice']),
     // 显示卡种
     showCards(){
       this.show = true;
+      this.columns = [{text: '花木范花券礼品卡'}]
     },
 
     // 显示面额
     showPrices(){
       this.show = true;
+      this.columns = [this.cardPrice]
     },
 
     // 取消
@@ -68,8 +103,26 @@ export default {
     },
 
     // 确认
-    confirm(){
+    confirm(current){
       this.show = false
+      // 面额
+      if(current.loanAmount){
+        this.price = current.loanAmount
+      // 卡种
+      }else{
+        this.cardType = current.text
+      }
+    },
+
+    // 花券回收提交
+    submit(){
+      this.$validate().then(async (success) => {
+        if(success){
+          alert(1)
+        }else{
+          Toast(this.validation.errors[0].message)
+        }
+      })
     }
   },
   components: {

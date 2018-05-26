@@ -60,6 +60,21 @@ li{
   line-height: 1.173333rem;
   background-color: #ef4f51;
   border-radius: 6px;
+
+  &[disabled]{
+    background-color: #eee;
+  }
+}
+
+.sendCode{
+  color: #ef4f51;
+  padding-left: .333333rem;
+  background: transparent;
+  border: none;
+  border-left: 1px solid #c1c1c1;
+  &[disabled]{
+    color: #ffb53c;
+  }
 }
 
 /* 各种协议 */
@@ -70,10 +85,10 @@ li{
 .agreement-box{
   padding-top: .32rem;
   padding-bottom: 1.333333rem;
-  .van-checkbox__icon{
-    width: .4rem;
-    height: .4rem;
-  }
+  // .van-checkbox__icon{
+  //   width: .4rem;
+  //   height: .4rem;
+  // }
 
   .van-checkbox--checked{
     border-color: #ef4f51;

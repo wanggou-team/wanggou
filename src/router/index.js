@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import util from '@/plugin'
+import store from '@/store'
 
 import Index from '@/components/Index'
 import Login from '@/components/Login'
@@ -13,6 +14,7 @@ import BindCard from '@/components/BindCard'
 import Auth from '@/components/Auth'
 import Defect from '@/components/defect';
 import Wait from '@/components/Wait';
+import Message from '@/components/Message'
 
 Vue.use(Router)
 
@@ -49,21 +51,33 @@ const router = new Router({
     {
       path: '/user',
       name: 'User',
+      meta: {
+        requiresAuth: true
+      },
       component: User
     },
     {
       path: '/recovery',
       name: 'Recovery',
+      meta: {
+        requiresAuth: true
+      },
       component: Recovery
     },
     {
       path: '/bindCard',
       name: BindCard,
-      component:BindCard
+      meta: {
+        requiresAuth: true
+      },
+      component: BindCard
     },
     {
       path: '/auth',
       name: 'Auth',
+      meta: {
+        requiresAuth: true
+      },
       component: Auth
     },
     {
@@ -75,10 +89,16 @@ const router = new Router({
       path: '/wait',
       name: 'wait',
       component: Wait
+    },
+    {
+      path: '/message',
+      name: 'Message',
+      component: Message
     }
   ]
 })
 
+console.log(store)
 router.beforeEach((to, from, next) => {
   let token = util.getCookie('loginToken')
 
@@ -93,16 +113,9 @@ router.beforeEach((to, from, next) => {
 
   // 需要登录路由
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    // 没有登录
-    if (!token) {
-      next({
-        path: '/login'
-      })
-    // 已登录
-    } else {
-      debugger
+    store.dispatch('getUser').then(data => {
       next()
-    }
+    })
   } else {
     next()
   }

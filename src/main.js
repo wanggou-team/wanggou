@@ -5,8 +5,11 @@ import SimpleVueValidation from 'simple-vue-validator';
 import App from './App'
 import router from './router'
 import store from '@/store'
+import directive from '@/directive/directive'
 import { Lazyload } from 'vant';
 
+
+Vue.directive('countdown', directive)
 Vue.use(Lazyload);
 Vue.use(SimpleVueValidation);
 Vue.config.productionTip = false

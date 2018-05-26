@@ -15,7 +15,7 @@
       </div>
 
       <van-cell-group class="item">
-        <van-cell title="关于我们" is-link url="/about"/>
+        <van-cell title="关于我们" is-link to="/about"/>
       </van-cell-group>
     </div>
     
@@ -28,7 +28,8 @@
 <script>
 import { Cell, CellGroup, Button } from 'vant';
 import Card from '@/components/Card';
-import axios from '@/plugin/axios'
+import axios from '@/plugin/axios';
+import Util from '@/plugin'
 
 export default {
   data(){
@@ -48,6 +49,11 @@ export default {
     // 退出登录
     async logout(){
       const data = await axios.post('/apis/front/logout.htm');
+      debugger
+      if(data.bizCode === 1){
+        Util.delCookie('loginToken')
+        window.location = '/login'
+      }
       console.log(data)
     }
   },
