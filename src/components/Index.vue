@@ -34,12 +34,17 @@
 <script type="text/ecmascript-6">
 import { NoticeBar } from 'vant';
 import axios from '@/plugin/axios'
+import util from '@/plugin/'
 
 export default {
   data () {
-      return {}
+      return {
+        link:''
+      }
   },
   created () {
+    this.link = util.startApp()
+    console.log(this.link)
   },
   mounted () {
   },
