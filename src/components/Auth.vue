@@ -27,6 +27,7 @@
       </div>
 
       <div class="item">
+        <van-button class="back" @click="$router.back()" type="primary" bottom-action>上一步</van-button>
         <van-button class="submit" @click="apply" type="primary" bottom-action>立即申请</van-button>
       </div>
       
@@ -36,7 +37,9 @@
 
 <script>
 import { Cell, CellGroup, Button, Field, Checkbox, Toast  } from 'vant';
-import {card, phone} from '@/plugin'
+import util from '@/plugin'
+import axios from '@/plugin/axios'
+console.log(axios)
 
 export default {
 	data () {
@@ -52,19 +55,39 @@ export default {
       return Validator.value(value).required('请输入用户名');
     },
     card (value) {
-      return Validator.value(value).required('请输入身份证号').regex(card, '请输入正确的身份证');
+      return Validator.value(value).required('请输入身份证号').regex(util.card, '请输入正确的身份证');
     },
     phone (value) {
-      return Validator.value(value).required('请输入手机号').regex(phone, '请输入正确的手机号');
+      return Validator.value(value).required('请输入手机号').regex(util.phone, '请输入正确的手机号');
     }
   },
 	methods: {
 		// 登录
 		apply () {
-			this.$validate().then((success) => {
-        console.log(this)
+			this.$validate().then(async (success) => {
+        let authMessage = {
+          banks: [],
+          serial: ''
+        }
         if(success){
-          alert('s')
+          try {
+            authMessage = JSON.parse(localStorage.getItem('authMessage'))
+          } catch (error) {
+            console.log(error)
+          }
+          const data = await axios.post('/apis/front/loanOrder/repurchase.htm', {
+            serial: authMessage.serial,
+            bankId: authMessage.banks[0].id,
+            name: this.name,
+            idNo: this.card,
+            phone: this.phone
+          })
+
+          if(data.bizCode === 0){
+            Toast(data.msg)
+          }else{
+            this.$router.push('/wait')
+          }
         }else{
           Toast(this.validation.errors[0].message)
         }
@@ -91,6 +114,14 @@ export default {
   }
 	#auth{
     padding-top:  .333333rem;
+  }
+
+  .back{
+    background-color: #999;
+    border-radius: 6px;
+  }
+  .submit{
+    margin-top: .2rem;
   }
 </style>
 

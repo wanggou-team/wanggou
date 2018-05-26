@@ -88,17 +88,27 @@ const router = new Router({
     {
       path: '/wait',
       name: 'wait',
+      meta: {
+        requiresAuth: true
+      },
       component: Wait
     },
     {
       path: '/message',
       name: 'Message',
+      meta: {
+        requiresAuth: true
+      },
       component: Message
+    },
+    {
+      path: "*",
+      name: '404',
+      component: Defect
     }
   ]
 })
 
-console.log(store)
 router.beforeEach((to, from, next) => {
   let token = util.getCookie('loginToken')
 
@@ -113,8 +123,14 @@ router.beforeEach((to, from, next) => {
 
   // 需要登录路由
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    store.dispatch('getUser').then(data => {
-      next()
+    store.dispatch('getUser').then((data = {}) => {
+      if (data.userNm) {
+        next()
+      } else {
+        next({
+          name: 'Login'
+        })
+      }
     })
   } else {
     next()

@@ -28,12 +28,12 @@
         <van-field label="银行卡号" v-model="bankCode" placeholder="请输入银行卡号" />
       </van-cell-group>
 
-      <div class="item agreement-box">
+      <!-- <div class="item agreement-box">
          <van-checkbox v-model="checked" shape="square">我同意 <a id="agreement">《交易协议》</a></van-checkbox>
-      </div>
+      </div> -->
 
       <div class="item">
-        <van-button class="submit" @click="sure" :disabled="!checked" type="primary" bottom-action>确认并提交</van-button>
+        <van-button class="submit" @click="sure" type="primary" bottom-action>确认并提交</van-button>
       </div>
       
     </div>
@@ -132,6 +132,8 @@ export default {
           const data = await axios.post('/apis/front/loanOrder/bindBank.htm', params)
           if(data.bizCode === 1){
             this.$router.go(-1)
+          }else{
+            Toast(data.msg)
           }
           
         }else{

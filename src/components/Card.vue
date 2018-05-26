@@ -9,7 +9,7 @@
           </figure>
           <p>手机尾号（{{banks[0].bankMobile}}）</p>
         </header>
-        <p class="cardCode">****  ****  ****  0928</p>
+        <p class="cardCode">****  ****  ****  {{banks[0].bankAcc}}</p>
       </div>
 
       <p class="noBind" v-if="banks.length < 1">未绑定银行卡</p>

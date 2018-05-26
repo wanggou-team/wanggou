@@ -54,6 +54,13 @@ h1,h2,h3,h4,h5,h6,figure,figcaption,p {
 li{
   list-style: none;
 }
+
+input{
+  color: inherit;
+}
+.van-tabbar-item--active{
+  color: #ef4f51;
+}
 .submit{
   margin-top: .986667rem;
   height: 1.173333rem;

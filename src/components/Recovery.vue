@@ -4,7 +4,6 @@
       <header class="header">
         <h2 class="title">花券回收</h2>
       </header>
-      {{user.banks}}
       <div class="form">
         <van-cell-group class="item" @click.native="showCards">
           <van-field class="field"  
@@ -28,11 +27,16 @@
         </van-cell-group>
 
         <van-cell-group class="item">
-          <van-field class="field" v-model="cardCode" label="卡序列号" placeholder="请输入卡序列号" required/>
+          <van-field 
+            class="field" 
+            v-model="cardCode" 
+            label="卡序列号" 
+            placeholder="请输入卡序列号" 
+            required/>
         </van-cell-group>
 
         <van-cell-group class="item">
-          <Card :banks="user.banks" />
+          <Card :banks="userBankCards" />
         </van-cell-group>
 
         <van-button class="submit" @click="submit" type="primary" bottom-action>提交</van-button>
@@ -72,11 +76,26 @@ export default {
     }
   },
   created(){
+    let authMessage = {}
     // 获取面额
     this.getCardPrice()
+
+    // 获取可用银行卡
+    this.getBankCards()
+
+    // 获取之前填写的序列号
+    try {
+      authMessage = JSON.parse(localStorage.getItem('authMessage'))
+      this.cardCode = authMessage.serial
+      this.price = authMessage.price
+      this.cardType = authMessage.cardType || '花木范花券礼品卡'
+    } catch (error) {
+      console.log(error)
+    }
+
   },
   computed: {
-    ...mapState(['cardPrice', 'user'])
+    ...mapState(['cardPrice', 'user', 'userBankCards'])
   },
   watch:{
     cardPrice(newVal = {}){
@@ -84,7 +103,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getCardPrice']),
+    ...mapActions(['getCardPrice', 'getBankCards']),
     // 显示卡种
     showCards(){
       this.show = true;
@@ -116,9 +135,20 @@ export default {
 
     // 花券回收提交
     submit(){
+      // 判断当前用户是否有绑定银行卡
+      if(!Array.isArray(this.userBankCards) || this.userBankCards.length < 1){
+        Toast("您尚未绑定银行卡,请先绑定银行卡")
+        return 
+      }
       this.$validate().then(async (success) => {
         if(success){
-          alert(1)
+          localStorage.setItem('authMessage', JSON.stringify({
+            banks: this.userBankCards,
+            price: this.price,
+            cardType: this.cardType,
+            serial: this.cardCode
+          }))
+          this.$router.push('/auth')
         }else{
           Toast(this.validation.errors[0].message)
         }

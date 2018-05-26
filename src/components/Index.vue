@@ -69,7 +69,8 @@ export default {
       position: relative;
 
       &::before{
-        background-color: pink;
+        background: url('../assets/home01.png') no-repeat;
+        background-size: 100%;
         content: "";
         width: .64rem;
         height: .64rem;

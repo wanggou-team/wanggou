@@ -4,12 +4,12 @@
         <img src="../assets/logo.png" alt="旺购" />
       </h1>
       <div>
-        <div class="item">
-          <i class="icon"></i>
+        <div class="item phone">
+          <!-- <i class="icon"></i> -->
           <van-field v-model="user" placeholder="请输入手机号" />
         </div>
-        <div class="item">
-          <i class="icon"></i>
+        <div class="item code">
+          <!-- <i class="icon"></i> -->
           <van-field v-model="code" placeholder="请输入验证码">
             <button :phone="user" class="sendCode" @click="getCode" slot="button" v-countdown>获取验证码</button>
           </van-field>
@@ -91,20 +91,30 @@ export default {
 		height: 100vh;
 		background-color: #fff;
 		padding: 2.37rem 1.12rem 0;
-		.icon{
-			display: inline-block;
-			width: .6rem;
-			background: pink;
-			height: .6rem;
-			margin-right: .533333rem;
-		}
-
 		.item{
 			border-bottom: 1px solid #adadad;
 			display: flex;
 			align-items: center;
+
+			&::before{
+				content: "";
+				width: .6rem;
+				height: .6rem;
+				margin-right: .533333rem;
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+
+			&.phone::before{
+				background-image: url('../assets/icon-phone.png');
+			}
+			&.code::before{
+				background-image: url('../assets/icon-password.png');
+			}
 		}
 		.van-cell{
+			color: #ef4f51;
 			flex: 1;
 			padding-left: 0;
 			padding-right: .106667rem;

@@ -10,7 +10,7 @@
           <h3 class="title">绑定银行卡</h3>
         </header>
         <div class="card">
-          <Card :banks="user.banks"/>
+          <Card :banks="userBankCards"/>
         </div>
       </div>
 
@@ -30,6 +30,7 @@ import { Cell, CellGroup, Button } from 'vant';
 import Card from '@/components/Card';
 import axios from '@/plugin/axios';
 import Util from '@/plugin'
+import {mapState, mapActions} from 'vuex'
 
 export default {
   data(){
@@ -40,7 +41,11 @@ export default {
   created(){
     this.getUserInfo()
   },
+  computed: {
+    ...mapState(['userBankCards'])
+  },
   methods: {
+    ...mapActions(['getBankCards']),
     // 获取用户信息
     async getUserInfo(){
       const {data = {}} = await axios.get('/apis/front/loanOrder/info.htm')
@@ -49,7 +54,6 @@ export default {
     // 退出登录
     async logout(){
       const data = await axios.post('/apis/front/logout.htm');
-      debugger
       if(data.bizCode === 1){
         Util.delCookie('loginToken')
         window.location = '/login'

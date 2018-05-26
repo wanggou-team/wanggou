@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '@/plugin/axios'
+import { stat } from 'fs';
 
 Vue.use(Vuex)
 
@@ -9,7 +10,8 @@ const store = new Vuex.Store({
     // 登录用户信息
     user: {},
 
-    // 登录用户
+    // 用户可用银行卡
+    userBankCards: [],
 
     // 花券面额
     cardPrice: {},
@@ -30,13 +32,24 @@ const store = new Vuex.Store({
     // 设置银行列表
     SET_BANKLIST(state, payload = []) {
       state.bankList = payload
+    },
+
+    // 用户可用银行卡
+    SET_USERBANKCARDS(state, payload = []) {
+      state.userBankCards = payload
     }
   },
   actions: {
-    // 获取可用银行卡
+    // 获取可用银行列表
     async getBankList({ commit }) {
       const data = await axios.get('/apis/common/bankList.htm')
       commit('SET_BANKLIST', data.data)
+    },
+
+    // 获取用户银行卡
+    async getBankCards({ commit }) {
+      const data = await axios.get('/apis/front/loanOrder/bankList.htm')
+      commit('SET_USERBANKCARDS', data.data)
     },
 
     // 获取花券面额
@@ -54,6 +67,7 @@ const store = new Vuex.Store({
     async getUser({ commit }) {
       const data = await axios.get('/apis/front/loanOrder/info.htm')
       commit('SET_USER', data.data)
+      return data.data
     }
   }
 })
