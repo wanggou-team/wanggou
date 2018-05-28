@@ -43,7 +43,7 @@ axiosInstance.interceptors.response.use(response => {
   // 登录失效跳转到登录
   if (bizCode === -1) {
     util.delCookie('loginToken')
-    window.location = '/login'
+    window.location = '/html/login'
   }
   return Promise.resolve(data || {})
 }, (error) => {

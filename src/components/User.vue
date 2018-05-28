@@ -56,7 +56,7 @@ export default {
       const data = await axios.post('/apis/front/logout.htm');
       if(data.bizCode === 1){
         Util.delCookie('loginToken')
-        window.location = '/login'
+        window.location = '/html/login'
       }
       console.log(data)
     }
