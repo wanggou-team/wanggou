@@ -48,12 +48,12 @@ export default {
     ...mapActions(['getBankCards']),
     // 获取用户信息
     async getUserInfo(){
-      const {data = {}} = await axios.get('/apis/front/loanOrder/info.htm')
+      const {data = {}} = await axios.get('/front/loanOrder/info.htm')
       this.user = data
     },
     // 退出登录
     async logout(){
-      const data = await axios.post('/apis/front/logout.htm');
+      const data = await axios.post('/front/logout.htm');
       if(data.bizCode === 1){
         Util.delCookie('loginToken')
         window.location = '/html/login'

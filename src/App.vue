@@ -18,7 +18,7 @@ export default {
 
   methods: {
     async getBankList(){
-      const data = await axios.get('/apis/front/loanOrder/bankList.htm')
+      const data = await axios.get('/front/loanOrder/bankList.htm')
       this.$store.commit('SET_USER', data.user)
       this.$store.commit('SET_BANKLIST', data.data)
     }

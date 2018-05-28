@@ -63,7 +63,7 @@
 
       // 请求获取订单
       async getOrder () {
-        const {bizCode, data: {dataList, totalPage}} = await axios.post('/apis/front/loanOrder/page.htm', {
+        const {bizCode, data: {dataList, totalPage}} = await axios.post('/front/loanOrder/page.htm', {
           page: this.page,
           pageSize: this.pageSize
         })

@@ -42,19 +42,19 @@ const store = new Vuex.Store({
   actions: {
     // 获取可用银行列表
     async getBankList({ commit }) {
-      const data = await axios.get('/apis/common/bankList.htm')
+      const data = await axios.get('/common/bankList.htm')
       commit('SET_BANKLIST', data.data)
     },
 
     // 获取用户银行卡
     async getBankCards({ commit }) {
-      const data = await axios.get('/apis/front/loanOrder/bankList.htm')
+      const data = await axios.get('/front/loanOrder/bankList.htm')
       commit('SET_USERBANKCARDS', data.data)
     },
 
     // 获取花券面额
     async getCardPrice({ commit }) {
-      const data = await axios.get('/apis/front/loanOrder/loan.htm')
+      const data = await axios.get('/front/loanOrder/loan.htm')
       let cardPrice = {}
       if (data.bizCode === 1) {
         cardPrice = data.data
@@ -65,7 +65,7 @@ const store = new Vuex.Store({
 
     // 获取登录用户信息
     async getUser({ commit }) {
-      const data = await axios.get('/apis/front/loanOrder/info.htm')
+      const data = await axios.get('/front/loanOrder/info.htm')
       commit('SET_USER', data.data)
       return data.data
     }

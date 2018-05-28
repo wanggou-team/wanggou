@@ -44,7 +44,7 @@ export default {
 		login () {
 			this.$validate().then(async (success) => {
         if(success){
-					const data =  await axios.post('/apis/front/login.htm', {userNm: this.user, code: this.code})
+					const data =  await axios.post('/front/login.htm', {userNm: this.user, code: this.code})
 					if(data.bizCode === 0){
 						Toast(data.msg)
 					}else{
@@ -70,7 +70,7 @@ export default {
 				Toast('请输入正确的手机号')
 				return ;
 			}
-			const data = await axios.get('/apis/front/code.htm', {params: {userNm: this.user}})
+			const data = await axios.get('/front/code.htm', {params: {userNm: this.user}})
 			if(data.bizCode === 0){
 				Toast(data.msg)
 			}

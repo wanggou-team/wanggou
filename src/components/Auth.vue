@@ -75,7 +75,7 @@ export default {
           } catch (error) {
             console.log(error)
           }
-          const data = await axios.post('/apis/front/loanOrder/repurchase.htm', {
+          const data = await axios.post('/front/loanOrder/repurchase.htm', {
             serial: authMessage.serial,
             bankId: authMessage.banks[0].id,
             name: this.name,

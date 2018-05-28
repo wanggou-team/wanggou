@@ -92,7 +92,7 @@ export default {
 	methods: {
     async getPhoneCode(event){
       if(util.phone.test(this.phone)){
-        const data = await axios.get('/apis/front/loanOrder/bankCode.htm', {params: {phone: this.phone}})
+        const data = await axios.get('/front/loanOrder/bankCode.htm', {params: {phone: this.phone}})
         if(data.bizCode !== 1){
           Toast(data.msg)
         }
@@ -129,7 +129,7 @@ export default {
             bankCode: this.bank.code,
             bankAccount: this.bankCode
           }
-          const data = await axios.post('/apis/front/loanOrder/bindBank.htm', params)
+          const data = await axios.post('/front/loanOrder/bindBank.htm', params)
           if(data.bizCode === 1){
             this.$router.go(-1)
           }else{
