@@ -15,7 +15,6 @@ import Auth from '@/components/Auth'
 import Defect from '@/components/defect';
 import Wait from '@/components/Wait';
 import Message from '@/components/Message';
-import TransferAgreement from "@/components/TransferAgreement"
 
 Vue.use(Router)
 
@@ -102,14 +101,6 @@ const router = new Router({
         requiresAuth: true
       },
       component: Message
-    },
-    {
-      path: '/transferAgreement',
-      name: 'transferAgreement',
-      meta: {
-        requiresAuth: false
-      },
-      component: TransferAgreement
     },
     {
       path: "*",
