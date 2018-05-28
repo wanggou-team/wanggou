@@ -59,7 +59,7 @@ input{
   color: inherit;
 }
 .van-tabbar-item--active{
-  color: #ef4f51;
+  color: #ef4f51 !important;
 }
 .submit{
   margin-top: .986667rem;

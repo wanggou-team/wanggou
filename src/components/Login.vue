@@ -14,7 +14,7 @@
             <button :phone="user" class="sendCode" @click="getCode" slot="button" v-countdown>获取验证码</button>
           </van-field>
         </div>
-        <van-button class="submit" @click="login" type="primary" bottom-action>按钮</van-button>
+        <van-button class="submit" @click="login" type="primary" bottom-action>登录</van-button>
       </div>
     </div>
 </template>
