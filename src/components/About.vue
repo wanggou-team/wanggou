@@ -6,8 +6,8 @@
     </figure>
 
     <div class="contact">
-      <a href="" class="phone">电话客服</a>
-      <a href="" class="online">在线客服</a>
+      <a href="tel:4006805577" class="phone">电话客服</a>
+      <a href="http://test.mall.51veryrich.com/console/auth/qq.html" class="online">在线客服</a>
     </div>
 
     <p class="company">金华晨皓信息技术有限公司</p>

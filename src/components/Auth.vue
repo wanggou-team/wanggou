@@ -23,7 +23,7 @@
         </van-field>
       </div> -->
       <div class="item agreement-box">
-         <van-checkbox v-model="checked" shape="square">请确保您的礼品卡所属信息为本人，我已阅读并接受 <a id="agreement">《活动协议》</a></van-checkbox>
+         <van-checkbox class="checkbox" v-model="checked" shape="square">请确保您的礼品卡所属信息为本人，我已阅读并接受<a id="agreement" @click.stop.prevent="showProtocol">《活动协议》</a></van-checkbox> 
       </div>
 
       <div class="item">
@@ -32,6 +32,8 @@
       </div>
       
     </div>
+
+    <DialogAgreement :is-show="show" />
   </div>
 </template>
 
@@ -39,7 +41,7 @@
 import { Cell, CellGroup, Button, Field, Checkbox, Toast  } from 'vant';
 import util from '@/plugin'
 import axios from '@/plugin/axios'
-console.log(axios)
+import DialogAgreement from '@/components/DialogAgreement'
 
 export default {
 	data () {
@@ -47,6 +49,7 @@ export default {
       name: '',
       card: '',
       phone: '',
+      show: false,
       checked: false
 		}
   },
@@ -62,6 +65,10 @@ export default {
     }
   },
 	methods: {
+    // 显示协议
+    showProtocol(){
+      this.show = true
+    },
 		// 登录
 		apply () {
 			this.$validate().then(async (success) => {
@@ -95,6 +102,7 @@ export default {
 		}
 	},
   components: {
+    DialogAgreement,
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup,
     [Button.name]: Button,
@@ -122,6 +130,9 @@ export default {
   }
   .submit{
     margin-top: .2rem;
+  }
+  .checkbox{
+    display: inline-block;
   }
 </style>
 

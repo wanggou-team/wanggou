@@ -1,6 +1,8 @@
 import axios from 'axios'
 import qs from 'qs'
 import util from '@/plugin'
+import router from '@/router'
+import {Toast} from 'vant'
 
 let options = {
   timeout: 80000, //  超时时间
@@ -38,13 +40,16 @@ axiosInstance.interceptors.response.use(response => {
   const config = response.config
   const headers = response.headers
   let data = response.data || {}
-  const { bizCode } = data
+  const { bizCode, msg } = data
 
   // 登录失效跳转到登录
-  if (bizCode === -1) {
+  if (bizCode === -1 || bizCode === -3) {
     util.delCookie('loginToken')
-    window.location = '/html/login'
+    Toast(msg)
+
+    router.push('login')
   }
+
   return Promise.resolve(data || {})
 }, (error) => {
   // Message.error(error.message || '系统出错')
