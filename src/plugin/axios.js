@@ -46,7 +46,6 @@ axiosInstance.interceptors.response.use(response => {
   if (bizCode === -1 || bizCode === -3) {
     util.delCookie('loginToken')
     Toast(msg)
-
     router.push('login')
   }
 
