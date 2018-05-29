@@ -2,7 +2,10 @@
 <template>
   <div class="dialog" v-show="isShow">
     <div class="wrap">
-      <div class="title">旺购礼品卡转让协议</div>
+      <div class="title">
+        旺购礼品卡转让协议
+        <i class="close" @click="close"></i>
+      </div>
       <article class="ft">旺购礼品卡转让协议（以下称“本协议”）是旺购平台（以下
         称“旺购”）与旺购用户（以下称“用户”或“您”）就礼品卡转
         让服务（或称”本服务”）所订立的有效合约。<span class="clo3">用户通过网络
@@ -127,6 +130,13 @@ export default {
     return {
     };
   },
+  methods: {
+    close() {
+      this.$emit('update:isShow', false)
+    }
+  },
+  components: {
+  }
 }
 
 </script>
@@ -164,6 +174,16 @@ li{
     color:$color3;
     text-align: center;
     font-weight: bold;
+    position: relative;
+    .close{
+      position: absolute;
+      width:.27rem;
+      height:.27rem;
+      right:0px;
+      top:.4rem;
+      background: url("../assets/close.png") no-repeat;
+      background-size: cover
+    }
   }
   .sm-title{
     font-size:.35rem;
