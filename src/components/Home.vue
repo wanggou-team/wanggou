@@ -31,7 +31,7 @@
     </van-cell-group>
 
     <van-cell-group class="item">
-      <van-cell title="花券传送门" icon="location" is-link>
+      <van-cell title="花券传送门" icon="location" @click.native.prevent="openApp" is-link>
         <template slot="icon">
           <img src="../assets/my03.png" alt="">
         </template>
@@ -52,10 +52,13 @@
 import { Cell, CellGroup } from 'vant';
 import axios from '@/plugin/axios'
 import {mapState, mapActions} from 'vuex'
+import util from '@/plugin/'
 
 export default {
   data(){
-    return {}
+    return {
+      link: ''
+    }
   },
   created(){
     this.getUser()
@@ -64,7 +67,13 @@ export default {
     ...mapState(['user'])
   },
   methods: {
-    ...mapActions(['getUser'])
+    ...mapActions(['getUser']),
+
+    openApp(){
+      util.AppUrl().then((url) => {
+        window.location.href = url //"wushang://android";
+      })
+    }
   },
   components: {
     [Cell.name]: Cell,

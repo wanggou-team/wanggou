@@ -19,11 +19,10 @@
     </header>
 
     <!-- 回购教程 -->
-
     <div class="buy-back-Wrap">
       <h2 class="backTitle">回购教程</h2>
       <ul>
-        <li class="buy_list" data-foo="1">登录花木范商城进行花券获取，<router-link class='goBuy' to='/login'>点击申请</router-link></li>
+        <li class="buy_list" data-foo="1">登录花木范商城进行花券获取，<a @click.prevent="openApp" class='goBuy' >点击申请</a></li>
         <li class="buy_list" data-foo="2">认证审核通过后，获取花券序列号，点击激活</li>
         <li class="buy_list" data-foo="3">激活后回到该界面点击上方窗口，输入序列号</li>
         <li class="buy_list" data-foo="4">资金到账，等待十天后商城付款</li>
@@ -33,22 +32,29 @@
 </template>
 <script type="text/ecmascript-6">
 import { NoticeBar } from 'vant';
-import axios from '@/plugin/axios'
-import util from '@/plugin/'
+import axios from '@/plugin/axios';
+import util from '@/plugin/';
 
 export default {
   data () {
-      return {
-        link:''
-      }
+    return {
+      url: ''
+    }
   },
   created () {
-    this.link = util.startApp()
-    console.log(this.link)
+    
+  },
+  computed: {
+    
   },
   mounted () {
   },
   methods: {
+    openApp(){
+      util.AppUrl().then((url) => {
+        window.location.href = url //"wushang://android";
+      })
+    }
   },
   components: {
     [NoticeBar.name]: NoticeBar

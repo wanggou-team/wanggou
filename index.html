@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
-    <title>wanggou</title>
+    <!-- <meta http-equiv="refresh" content="0;url=wushang://android"> -->
+    <title>旺购</title>
     <script>
       (function (win, lib) {
         const doc = win.document;
@@ -74,6 +75,9 @@
             width = 540 * dpr;
           }
           const rem = width / 10;
+          console.log('native')
+          console.log(rem)
+
           docEl.style.fontSize = rem + 'px';
           flexible.rem = win.rem = rem;
         }

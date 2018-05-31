@@ -25,8 +25,9 @@ function delCookie (name) {
 var browser={
   versions:function(){
       var u = navigator.userAgent, app = navigator.appVersion;
+      console.log(u)
       return {
-          weixin: !!u.match(/MicroMessenger/i == 'micromessenger'),
+          weixin: u.indexOf('MicroMessenger') != -1,
           trident: u.indexOf('Trident') > -1, //IE
           presto: u.indexOf('Presto') > -1, //opera
           webKit: u.indexOf('AppleWebKit') > -1, //webkit
@@ -41,30 +42,35 @@ var browser={
   }(),
   language:(navigator.browserLanguage || navigator.language).toLowerCase()
 }
-function startApp() {
-  let a,
-      versionType = browser.versions
-  if(versionType.weixin) { //微信默认打开应用宝
-    a = "http://a.app.qq.com/o/simple.jsp?pkgname=[name]";
-    return a    
+
+function AppUrl(){
+  let versionType = browser.versions
+
+  // 微信默认打开应用宝
+  if (versionType.weixin) {
+    window.location.href  = "http://a.app.qq.com/o/simple.jsp?pkgname=[name]"    
   }
-  if (versionType.ios) { //IOS系统，直接去itunes中，既可以下载也可以打开
-    a = "https://itunes.apple.com/cn/app/[name]/id[id]";
-  } else { //android系统，通过定时器的方式，判断是否安装有APP
-    var hasApp = true , 
-        t = 1000;
-        setTimeout(function () {  //没有安装APP则跳转至应用宝下载，延时时间设置为2秒
-          if(!hasApp) a = "http://a.app.qq.com/o/simple.jsp?pkgname=[name]";
-          return a
-        } , 2000);
-        var t1 = Date.now();
-        a = "wushang://android";
-        setTimeout(function () {    //t的时间就是出发APP启动的时间，若APP启动了，再次返回页面时t2这行代码执行，hasApp即为true。反之若APP没有启动即为false
-          var t2 = Date.now();
-          hasApp = !(!t1 || t2 - t1 < t + 150);
-        } , t);
+
+  if (versionType.ios) {
+    window.location.href = "https://itunes.apple.com/us/app/花木范/id1390952201?l=zh&ls=1&mt=8"
+  } else {
+    window.location.href = "wushang://android"
+
+    let t1 = Date.now();
+    let hasApp = true;
+
+    setTimeout(function () {    //t的时间就是出发APP启动的时间，若APP启动了，再次返回页面时t2这行代码执行，hasApp即为true。反之若APP没有启动即为false
+      let t2 = Date.now();
+      hasApp = !(!t1 || t2 - t1 < 1000 + 150);
+      
+    } , 1000);
+
+    setTimeout(function () {  //没有安装APP则跳转至应用宝下载，延时时间设置为2秒
+      if(!hasApp){
+        window.location.href = "https://mall.huamushijie.com/res/app/android/hmf.apk"
+      }
+    } , 2000);
   }
-  return a
 }
 
 
@@ -74,5 +80,5 @@ export default {
 	setCookie,
 	getCookie,
   delCookie,
-  startApp
+  AppUrl
 }
